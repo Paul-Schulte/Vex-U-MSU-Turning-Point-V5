@@ -1,20 +1,30 @@
-#include "main.h"
+#include "flipper.hpp"
+
+
+bool isFlipping = false;
 
 bool flipperUp = true;
-bool flipping = false;
 
+void toggleFlipper(void* x) {
+  while (true) {
+    if (master.get_digital_new_press(DIGITAL_UP)) {
+      isFlipping = true;
 
-void toggleFlipper(){
-  flipping = true;
-  flipperUp ? flipper.move_absolute(300, 150) : flipper.move_absolute(100, -150);
-  flipperUp = !flipperUp;
-  flipping = false;
-}
+      if(flipperUp) {
+        flipper.move_absolute(-590, 100);
+        while (flipper.get_position() > -580) {}
+        // while(flipper.get_position() > -590)
+        //   flipper.move_velocity(-200);
+      }
+      else {
+        flipper.move_absolute(-50, 100);
+        while (flipper.get_position() < -50) {}
+        // while(flipper.get_position() < -50)
+        //   flipper.move_velocity(200);
+      }
 
-void setFlipping(bool in){
-  flipping = in;
-}
-
-bool isFlipping() {
-  return flipping;
+      isFlipping = false;
+      flipperUp = !flipperUp;
+    }
+  }
 }

@@ -59,9 +59,9 @@
  #include "sensors.hpp"
  #include "flipper.hpp"
  #include "screen.hpp"
- #include "skills.hpp"
  #include "redAuton.hpp"
  #include "blueAuton.hpp"
+ #include "skills.hpp"
 // using namespace pros::literals;
 // using namespace okapi;
 

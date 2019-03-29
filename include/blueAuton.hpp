@@ -1,8 +1,5 @@
-#ifndef BLUEAUTON_HPP
-#define BLUEAUTON_HPP
+#pragma once
+#include "main.h"
 
 
 void blueAuton();
-
-
-#endif

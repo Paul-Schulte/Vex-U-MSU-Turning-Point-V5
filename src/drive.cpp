@@ -1,4 +1,4 @@
-#include "main.h"
+#include "drive.hpp"
 
 /**
 Sets the left and right sides of the drive to the given velocities.
@@ -10,6 +10,8 @@ The velocity set to the left side of the drive.
 The velocity set to the right side of the drive.
  */
 void setDrive(int left, int right){
+  // chassis.tank(left, right);
+
   motorL1.move(left);
   motorL2.move(left);
   motorL3.move(left);
@@ -75,8 +77,6 @@ void driveLock(){
   motorR1.set_brake_mode(E_MOTOR_BRAKE_HOLD);
   motorR2.set_brake_mode(E_MOTOR_BRAKE_HOLD);
   motorR3.set_brake_mode(E_MOTOR_BRAKE_HOLD);
-  master.clear();
-  master.print(0, 0, "Drive Lock Enabled");
 }
 
 /**
@@ -89,6 +89,4 @@ void driveUnlock(){
   motorR1.set_brake_mode(E_MOTOR_BRAKE_COAST);
   motorR2.set_brake_mode(E_MOTOR_BRAKE_COAST);
   motorR3.set_brake_mode(E_MOTOR_BRAKE_COAST);
-  master.clear();
-  master.print(0, 0, "Drive Lock Disabled");
 }

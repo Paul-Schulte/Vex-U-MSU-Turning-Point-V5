@@ -1,6 +1,4 @@
-#ifndef MOTORS_HPP
-#define MOTORS_HPP
-
+#pragma once
 #include "main.h"
 
 
@@ -19,6 +17,3 @@ extern Motor flipper;
 extern Motor intake;
 
 extern bool isAuton;
-
-
-#endif

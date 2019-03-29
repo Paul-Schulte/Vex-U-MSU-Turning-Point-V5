@@ -1,10 +1,7 @@
-#ifndef FLIPPER_HPP
-#define FLIPPER_HPP
+#pragma once
+#include "main.h"
 
 
-void toggleFlipper();
-void setFlipping(bool in);
-bool isFlipping();
+extern bool isFlipping;
 
-
-#endif
+void toggleFlipper(void*);

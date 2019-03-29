@@ -1,9 +1,6 @@
-#ifndef LAUNCHER_HPP
-#define LAUNCHER_HPP
+#pragma once
+#include "main.h"
 
 
 void launcherControl();
 void launcherShoot();
-
-
-#endif

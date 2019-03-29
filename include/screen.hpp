@@ -1,12 +1,13 @@
-#ifndef SCREEN_HPP
-#define SCREEN_HPP
+#pragma once
+#include "main.h"
 
 
-extern int screen;
-extern int maxScreens;
-extern int selection;
+extern int selectedAuton;
+extern bool test1;
+extern bool test2;
+extern bool test3;
 
-void displayScreen();
-
-
-#endif
+void runScreen();
+void updateLineVariable(int line, float value);
+void updateLineVariable(int line, std::string value);
+void startAuton();

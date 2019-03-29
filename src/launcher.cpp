@@ -1,4 +1,4 @@
-#include "main.h"
+#include "launcher.hpp"
 
 /**
 Holds the launcher close to firing to allow quicker shooting.
@@ -30,6 +30,6 @@ void launcherControl(){
 Activates the launcher.
 */
 void launcherShoot(){
-  launcherL.move_relative(1800, 100);
-  launcherR.move_relative(1800, 100);
+  launcherL.move_relative(1800, 300);
+  launcherR.move_relative(1800, 300);
 }

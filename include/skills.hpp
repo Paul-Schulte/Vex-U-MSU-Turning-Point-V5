@@ -1,8 +1,5 @@
-#ifndef SKILLS_HPP
-#define SKILLS_HPP
+#pragma once
+#include "main.h"
 
 
 void skills();
-
-
-#endif

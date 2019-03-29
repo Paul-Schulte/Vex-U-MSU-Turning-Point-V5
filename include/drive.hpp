@@ -1,5 +1,5 @@
-#ifndef DRIVE_HPP
-#define DRIVE_HPP
+#pragma once
+#include "main.h"
 
 
 void setDrive(int left, int right);
@@ -8,6 +8,3 @@ void driveTurn(int turn, int velocity);
 void driveManual(int turnL, int turnR, int velocityL, int velocityR);
 void driveLock();
 void driveUnlock();
-
-
-#endif

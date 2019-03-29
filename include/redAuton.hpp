@@ -1,9 +1,5 @@
-#ifndef REDAUTON_HPP
-#define REDAUTON_HPP
+#pragma once
+#include "main.h"
 
 
 void redAuton();
-bool runningRA();
-
-
-#endif

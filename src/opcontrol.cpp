@@ -1,6 +1,4 @@
 #include "main.h"
-#include "drive.hpp"
-#include "motors.hpp"
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -18,7 +16,7 @@
 void opcontrol() {
 	isAuton = false;
 
-	displayScreen();
+	Task flipperTask (toggleFlipper, (void*)"", TASK_PRIORITY_MIN, TASK_STACK_DEPTH_DEFAULT, "");
 
 	bool toggleLauncher = false;
 	bool toggleLock = false;
@@ -31,28 +29,26 @@ void opcontrol() {
 
 		//Toggles slow driving.
 		if (toggleDrive)
-			setDrive(master.get_analog(ANALOG_LY)/3, master.get_analog(ANALOG_RY)/3);
+			setDrive(master.get_analog(ANALOG_LY)/2, master.get_analog(ANALOG_RY)/2);
 		else
 			setDrive(master.get_analog(ANALOG_LY), master.get_analog(ANALOG_RY));
 
 		//Toggles the drive lock.
 		if (master.get_digital_new_press(DIGITAL_DOWN)) {
 			toggleLock = !toggleLock;
-			master.rumble("- -");
+			master.rumble("-");
 			toggleLock ? driveLock() : driveUnlock();
 		}
+
+		//if (master.get_digital_new_press(DIGITAL_B)) redAuton();
 
 
 		//Basic flipper controls with toggle.
 		if (master.get_digital(DIGIT_L1))
-			flipper.move_velocity(150);
+			flipper.move_velocity(100);
 		else if (master.get_digital(DIGIT_L2))
-			flipper.move_velocity(-150);
-		else if (master.get_digital(DIGIT_UP)) {
-			setFlipping(true);
-			toggleFlipper();
-		}
-		else if (!isFlipping())
+			flipper.move_velocity(-100);
+		else if (!isFlipping)
 			flipper.move_velocity(0);
 
 
@@ -82,25 +78,28 @@ void opcontrol() {
 		}
 
 		//Auton test while not connected to field.
-		if (master.get_digital_new_press(DIGITAL_LEFT) && !competition::is_connected()) {
+		if (master.get_digital_new_press(DIGITAL_LEFT) && !competition::is_connected())
 			autonomous();
-			do {
-				delay(10);
-			} while(isAuton);
-		}
 
-		//Motor encoder values.
-		lcd::print(1, "Left front encoder: %f", motorL1.get_position());
-		lcd::print(2, "Right front encoder: %f", motorR1.get_position());
-		lcd::print(3, "Flipper encoder: %f", flipper.get_position());
+		//Updates display values.
+		updateLineVariable(1, motorL1.get_position());
+		updateLineVariable(2, motorR1.get_position());
+		updateLineVariable(3, flipper.get_position());
+		updateLineVariable(4, toggleLock);
 
 		//Resets motor encoders.
 		if (master.get_digital_new_press(DIGITAL_RIGHT)) {
 			motorL1.tare_position();
 			motorR1.tare_position();
+			flipper.tare_position();
 		}
 
+		//Checks if manual auton is starting.
+		startAuton();
 
-		delay(10);
+
+		do {
+			delay(20);
+		} while(isAuton);
 	}
 }
