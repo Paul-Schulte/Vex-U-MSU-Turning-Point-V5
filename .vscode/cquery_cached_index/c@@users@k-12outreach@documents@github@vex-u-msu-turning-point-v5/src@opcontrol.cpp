@@ -30,6 +30,9 @@ void opcontrol() {
 		//Toggles slow driving.
 		if (toggleDrive)
 			setDrive(master.get_analog(ANALOG_LY)/2, master.get_analog(ANALOG_RY)/2);
+		else if (master.get_digital(DIGIT_X)){
+			setDrive(80, -80);
+		}
 		else
 			setDrive(master.get_analog(ANALOG_LY), master.get_analog(ANALOG_RY));
 
@@ -82,13 +85,13 @@ void opcontrol() {
 			autonomous();
 
 		//Updates display values.
-		updateLineVariable(1, motorL1.get_position());
-		updateLineVariable(2, motorR1.get_position());
+		updateLineVariable(1, driveL.getPosition());
+		updateLineVariable(2, driveR.getPosition());
 		updateLineVariable(3, flipper.get_position());
 		updateLineVariable(4, toggleLock);
 
 		//Resets motor encoders.
-		if (master.get_digital_new_press(DIGITAL_RIGHT)) {
+		if (master.get_digital_new_press(DIGIT_RIGHT)) {
 			motorL1.tare_position();
 			motorR1.tare_position();
 			flipper.tare_position();

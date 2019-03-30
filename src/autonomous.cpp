@@ -1,5 +1,7 @@
 #include "main.h"
 
+using namespace okapi;
+
 /**
  * Runs the user autonomous code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -16,14 +18,19 @@
 void autonomous() {
   isAuton = true;
 
-  switch (selectedAuton) {
-    case 1: redAuton();
-      break;
-    case 2: blueAuton();
-      break;
-    case 3: skills();
-      break;
-  }
+  // switch (selectedAuton) {
+  //   case 1: redAuton();
+  //     break;
+  //   case 2: blueAuton();
+  //     break;
+  //   case 3: skills();
+  //     break;
+  // }
 
+  chassis.setMaxVelocity(100);
+  chassis.turnAngle(90_deg);
+  delay(1000);
+
+  chassis.setMaxVelocity(200);
   isAuton = false;
 }

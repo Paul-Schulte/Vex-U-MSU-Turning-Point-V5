@@ -11,7 +11,7 @@ void toggleFlipper(void* x) {
       isFlipping = true;
 
       if(flipperUp) {
-        flipper.move_absolute(-590, 100);
+        flipper.move_absolute(-590, 200);
         while (flipper.get_position() > -580) {}
         // while(flipper.get_position() > -590)
         //   flipper.move_velocity(-200);

@@ -1,5 +1,4 @@
 #include "blueAuton.hpp"
-#include "chassis.hpp"
 
 using namespace okapi;
 #define moveDelay delay(100)
