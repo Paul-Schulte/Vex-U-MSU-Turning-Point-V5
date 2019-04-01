@@ -200,6 +200,7 @@ void runScreen() {
 float rightEncoder;
 float leftEncoder;
 float flipperEncoder;
+float launcherEncoder;
 float testValue;
 
 void updateLineVariable(int line, float value) {
@@ -210,6 +211,7 @@ void updateLineVariable(int line, float value) {
       break;
     case 3: flipperEncoder = value;
       break;
+    case 6: launcherEncoder = value;
   }
 
   lv_label_set_text(txt, (  "Right encoder: " + to_string(rightEncoder) + '\n' +
@@ -218,7 +220,7 @@ void updateLineVariable(int line, float value) {
                             "Selected Auton: " + to_string(selectedAuton) + '\n' +
                             "Test switches: " + to_string(test1) + " " + to_string(test2) +
                             " " + to_string(test3) + '\n' +
-                            "Test" + '\n' +
+                            "Test" + to_string(launcherEncoder) + '\n' +
                             "Test" + '\n').c_str());
 }
 

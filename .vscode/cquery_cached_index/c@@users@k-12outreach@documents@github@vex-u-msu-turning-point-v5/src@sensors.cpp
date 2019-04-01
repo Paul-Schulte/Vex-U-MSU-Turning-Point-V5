@@ -1,3 +1,6 @@
 #include "sensors.hpp"
 
-ADIDigitalIn limitSwitch ('A');
+
+bool toggle_piston = false;
+ADIDigitalOut pistonL('A');
+ADIDigitalOut pistonR('B');

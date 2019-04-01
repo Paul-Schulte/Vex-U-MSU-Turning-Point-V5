@@ -24,54 +24,52 @@ void opcontrol() {
 
 	while (true) {
 		//Sets the drive to tank drive.
-		if (master.get_digital_new_press(DIGITAL_B))
+		if (master.get_digital_new_press(INVERT_DRIVE) && IS_ALT)
 			toggleDrive = !toggleDrive;
 
 		//Toggles slow driving.
 		if (toggleDrive)
 			setDrive(master.get_analog(ANALOG_LY)/2, master.get_analog(ANALOG_RY)/2);
-		else if (master.get_digital(DIGIT_X)){
-			setDrive(80, -80);
-		}
 		else
 			setDrive(master.get_analog(ANALOG_LY), master.get_analog(ANALOG_RY));
 
 		//Toggles the drive lock.
-		if (master.get_digital_new_press(DIGITAL_DOWN)) {
+		if (master.get_digital_new_press(LOCK_DRIVE) && IS_ALT) {
 			toggleLock = !toggleLock;
 			master.rumble("-");
 			toggleLock ? driveLock() : driveUnlock();
 		}
 
-		//if (master.get_digital_new_press(DIGITAL_B)) redAuton();
-
 
 		//Basic flipper controls with toggle.
-		if (master.get_digital(DIGIT_L1))
+		if (master.get_digital(FLIPPER_UP) && !IS_ALT)
 			flipper.move_velocity(200);
-		else if (master.get_digital(DIGIT_L2))
+		else if (master.get_digital(FLIPPER_DOWN) && !IS_ALT)
 			flipper.move_velocity(-200);
 		else if (!isFlipping)
 			flipper.move_velocity(0);
 
 
 		//Basic intake controls.
-		if (master.get_digital(DIGIT_R1))
+		if (master.get_digital(INTAKE_UP) && !IS_ALT)
 			intake.move(90);
-		else if (master.get_digital(DIGIT_R2))
+		else if (master.get_digital(INTAKE_DOWN) && !IS_ALT)
 			intake.move(-90);
 		else
 			intake.move(0);
 
+		//Toggles intake pneumatics.
+		if (master.get_digital_new_press(INTAKE_TOGG) && !IS_ALT/*master.get_digital_new_press(ALT_BTNS)*/) {
+			toggle_piston = !toggle_piston;
+			pistonL.set_value(toggle_piston);
+			pistonR.set_value(toggle_piston);
+		}
+
 
 		//Basic launcher controls.
-		/*
-		if (master.get_digital_new_press(DIGITAL_B))
-			toggleLauncher = !toggleLauncher;
-*/
 		if (toggleLauncher)
 			launcherControl();
-		else if (master.get_digital(DIGIT_A)) {
+		else if (master.get_digital(LAUNCH_BTN) && !IS_ALT) {
 			launcherL.move(100);
 			launcherR.move(100);
 		}
@@ -80,8 +78,15 @@ void opcontrol() {
 			launcherR.move(0);
 		}
 
+		//Toggles launcher angle
+		if(master.get_digital_new_press(LAUNCHER_C) && !IS_ALT)
+			launcherMove(true);
+		else if(master.get_digital_new_press(LAUNCHER_F) && !IS_ALT)
+			launcherMove(false);
+
+
 		//Auton test while not connected to field.
-		if (master.get_digital_new_press(DIGITAL_LEFT) && !competition::is_connected())
+		if (master.get_digital_new_press(RUN_AUTON) && !competition::is_connected() && IS_ALT)
 			autonomous();
 
 		//Updates display values.
@@ -89,9 +94,10 @@ void opcontrol() {
 		updateLineVariable(2, driveR.getPosition());
 		updateLineVariable(3, flipper.get_position());
 		updateLineVariable(4, toggleLock);
+		updateLineVariable(6, launcherAngle.getPosition());
 
 		//Resets motor encoders.
-		if (master.get_digital_new_press(DIGIT_RIGHT)) {
+		if (master.get_digital_new_press(CLEAR_ENCODE) && IS_ALT) {
 			motorL1.tare_position();
 			motorR1.tare_position();
 			flipper.tare_position();

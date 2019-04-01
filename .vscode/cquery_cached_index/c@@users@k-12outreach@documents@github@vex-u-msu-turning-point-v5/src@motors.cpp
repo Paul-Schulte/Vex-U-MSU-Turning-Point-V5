@@ -29,9 +29,12 @@ okapi::ChassisControllerPID chassis = okapi::ChassisControllerFactory::create(dr
   IterativePosPIDController::Gains{0.006, 0, 0},
   okapi::AbstractMotor::gearset::green, {4_in, 12.0625_in});
 
+using okapi::AbstractMotor;
+
 //Other motors
 Motor launcherL  (10, GEAR_RED, true);
 Motor launcherR (11, GEAR_RED, false);
+okapi::Motor launcherAngle (12, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 Motor flipper   (8, GEAR_RED, true);
 Motor intake    (7, GEAR_BLUE, false);
 

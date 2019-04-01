@@ -2,4 +2,6 @@
 #include "main.h"
 
 
-extern ADIDigitalIn limitSwitch;
+extern bool toggle_piston;
+extern ADIDigitalOut pistonL;
+extern ADIDigitalOut pistonR;

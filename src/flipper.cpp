@@ -7,7 +7,7 @@ bool flipperUp = true;
 
 void toggleFlipper(void* x) {
   while (true) {
-    if (master.get_digital_new_press(DIGITAL_UP)) {
+    if (master.get_digital_new_press(FLIPPER_TOGG) && NOT_ALT) {
       isFlipping = true;
 
       if(flipperUp) {
