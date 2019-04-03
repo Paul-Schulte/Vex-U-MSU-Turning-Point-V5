@@ -2,6 +2,5 @@
 #include "main.h"
 
 
-extern bool flipperUp;
-
 void toggleFlipper();
+void flipperCheck();

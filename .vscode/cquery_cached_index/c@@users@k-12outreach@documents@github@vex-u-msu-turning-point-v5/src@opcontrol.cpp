@@ -17,6 +17,7 @@ void opcontrol() {
 	isAuton = false;
 
 	// Task flipperTask (toggleFlipper, (void*)"", TASK_PRIORITY_MIN, TASK_STACK_DEPTH_DEFAULT, "");
+	Task screenAuton (startAuton, (void*)"", TASK_PRIORITY_MIN, TASK_STACK_DEPTH_DEFAULT);
 
 	bool toggleLauncher = false;
 	bool toggleLock = false;
@@ -46,6 +47,8 @@ void opcontrol() {
 		//Basic flipper controls with toggle.
 		if (master.get_digital_new_press(FLIPPER_TOGG))
 			toggleFlipper();
+
+		flipperCheck();
 
 
 		//Basic intake controls.
@@ -82,6 +85,8 @@ void opcontrol() {
 		else if(master.get_digital_new_press(LAUNCHER_F) && !master.get_digital(ALT_BTNS))
 			launcherMove(false);
 
+		launcherCheck();
+
 
 		//Auton test while not connected to field.
 		if (master.get_digital_new_press(RUN_AUTON) && !competition::is_connected() && master.get_digital(ALT_BTNS))
@@ -102,10 +107,10 @@ void opcontrol() {
 		}
 
 		//Checks if manual auton is starting.
-		startAuton();
+		// startAuton();
 
 		do {
-			delay(20);
+			delay(10);
 		} while(isAuton);
 	}
 }

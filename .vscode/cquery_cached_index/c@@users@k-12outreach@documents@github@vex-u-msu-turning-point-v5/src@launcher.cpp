@@ -34,31 +34,45 @@ void launcherShoot(){
   launcherR.move_relative(1800, 300);
 }
 
-int l_angle_cl = 0;
-int l_angle_ch = 300;
-int l_angle_fl = 600;
-int l_angle_fh = 880;
+int angle_1 = 0;
+int angle_2 = 300;
+int angle_3 = 600;
+int angle_4 = 880;
 int l_power = 400;
 int last_pos = 1;
 void launcherMove(bool close) {
   if(close) {
     if(last_pos != 1) {
-      launcherAngle.moveAbsolute(l_angle_cl, l_power);
+      launcherAngle.moveAbsolute(angle_1, l_power);
       last_pos = 1;
     }
     else {
-      launcherAngle.moveAbsolute(l_angle_ch, l_power);
+      launcherAngle.moveAbsolute(angle_2, l_power);
       last_pos = 2;
     }
   }
   else {
     if(last_pos != 3) {
-      launcherAngle.moveAbsolute(l_angle_fl, l_power);
+      launcherAngle.moveAbsolute(angle_3, l_power);
       last_pos = 3;
     }
     else {
-      launcherAngle.moveAbsolute(l_angle_fh, l_power);
+      launcherAngle.moveAbsolute(angle_4, l_power);
       last_pos = 4;
     }
+  }
+}
+
+void launcherCheck() {
+  int curr_pos = launcherAngle.getPosition();
+  switch(last_pos) {
+    case 1: if(abs(curr_pos - angle_1) < 5) launcherAngle.moveVelocity(0);
+      break;
+    case 2: if(abs(curr_pos - angle_2) < 5) launcherAngle.moveVelocity(0);
+      break;
+    case 3: if(abs(curr_pos - angle_3) < 5) launcherAngle.moveVelocity(0);
+      break;
+    case 4: if(abs(curr_pos - angle_4) < 5) launcherAngle.moveVelocity(0);
+      break;
   }
 }

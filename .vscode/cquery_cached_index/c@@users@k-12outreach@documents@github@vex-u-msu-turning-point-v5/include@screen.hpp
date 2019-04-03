@@ -10,4 +10,4 @@ extern bool test3;
 void runScreen();
 void updateLineVariable(int line, float value);
 void updateLineVariable(int line, std::string value);
-void startAuton();
+void startAuton(void*);

@@ -226,7 +226,35 @@ void updateLineVariable(int line, float value) {
 
 bool waitAuton = false;
 long currentTime;
-void startAuton() {
+void startAuton(void*) {
+  while(true) {
+    if (toggleAuton) {
+      if (!waitAuton) {
+        currentTime = millis();
+        waitAuton = true;
+        printf("Setting time\n");
+      }
+      else
+        lv_label_set_text(label_cancel,   ("Auton Starting In " +
+                                          to_string(5 - (((int)millis() - (int)currentTime) / 1000)) +
+                                          " Seconds.").c_str());
+
+      if (currentTime < millis() - 5000) {
+        toggleAuton = false;
+        waitAuton = false;
+        lv_obj_del(page);
+        printf("Deleted page\n");
+        autonomous();
+        printf("Starting auton\n");
+      }
+    }
+    else
+      waitAuton = false;
+
+    delay(10);
+  }
+
+  /*
   if (toggleAuton) {
     if (!waitAuton) {
       currentTime = millis();
@@ -241,11 +269,11 @@ void startAuton() {
     if (currentTime < millis() - 5000) {
       toggleAuton = false;
       waitAuton = false;
-      lv_obj_del(page);
+      // lv_obj_del(page);
       autonomous();
       printf("Starting auton\n");
     }
   }
   else
-    waitAuton = false;
+    waitAuton = false;*/
 }
