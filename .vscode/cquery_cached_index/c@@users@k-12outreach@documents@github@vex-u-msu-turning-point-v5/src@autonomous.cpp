@@ -31,6 +31,8 @@ void autonomous() {
   chassis.turnAngle(90_deg);
   delay(1000);
 
+  delay(5000);
+
   chassis.setMaxVelocity(200);
   isAuton = false;
 }

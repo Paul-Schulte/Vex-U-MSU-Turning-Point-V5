@@ -211,16 +211,16 @@ void updateLineVariable(int line, float value) {
       break;
     case 3: flipperEncoder = value;
       break;
-    case 6: launcherEncoder = value;
+    case 4: launcherEncoder = value;
   }
 
   lv_label_set_text(txt, (  "Right encoder: " + to_string(rightEncoder) + '\n' +
                             "Left encoder: " + to_string(leftEncoder) + '\n' +
                             "Flipper encoder: " + to_string(flipperEncoder) + '\n' +
+                            "Launcher angle encoder: " + to_string(launcherEncoder) + '\n' +
                             "Selected Auton: " + to_string(selectedAuton) + '\n' +
                             "Test switches: " + to_string(test1) + " " + to_string(test2) +
                             " " + to_string(test3) + '\n' +
-                            "Test" + to_string(launcherEncoder) + '\n' +
                             "Test" + '\n').c_str());
 }
 
@@ -231,6 +231,7 @@ void startAuton() {
     if (!waitAuton) {
       currentTime = millis();
       waitAuton = true;
+      printf("Setting time\n");
     }
     else
       lv_label_set_text(label_cancel,   ("Auton Starting In " +
@@ -242,6 +243,7 @@ void startAuton() {
       waitAuton = false;
       lv_obj_del(page);
       autonomous();
+      printf("Starting auton\n");
     }
   }
   else

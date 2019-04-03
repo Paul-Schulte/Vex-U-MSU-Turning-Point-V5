@@ -35,7 +35,7 @@ using okapi::AbstractMotor;
 Motor launcherL  (10, GEAR_RED, true);
 Motor launcherR (11, GEAR_RED, false);
 okapi::Motor launcherAngle (12, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
-Motor flipper   (8, GEAR_RED, true);
+Motor flipper   (8, GEAR_RED, false);
 Motor intake    (7, GEAR_BLUE, false);
 
 bool isAuton;

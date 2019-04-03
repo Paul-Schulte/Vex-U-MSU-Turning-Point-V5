@@ -16,15 +16,17 @@
 void opcontrol() {
 	isAuton = false;
 
-	Task flipperTask (toggleFlipper, (void*)"", TASK_PRIORITY_MIN, TASK_STACK_DEPTH_DEFAULT, "");
+	// Task flipperTask (toggleFlipper, (void*)"", TASK_PRIORITY_MIN, TASK_STACK_DEPTH_DEFAULT, "");
 
 	bool toggleLauncher = false;
 	bool toggleLock = false;
 	bool toggleDrive = false;
 
+	launcherAngle.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
+
 	while (true) {
 		//Sets the drive to tank drive.
-		if (master.get_digital_new_press(INVERT_DRIVE) && IS_ALT)
+		if (master.get_digital_new_press(INVERT_DRIVE) && master.get_digital(ALT_BTNS))
 			toggleDrive = !toggleDrive;
 
 		//Toggles slow driving.
@@ -34,7 +36,7 @@ void opcontrol() {
 			setDrive(master.get_analog(ANALOG_LY), master.get_analog(ANALOG_RY));
 
 		//Toggles the drive lock.
-		if (master.get_digital_new_press(LOCK_DRIVE) && IS_ALT) {
+		if (master.get_digital_new_press(LOCK_DRIVE) && master.get_digital(ALT_BTNS)) {
 			toggleLock = !toggleLock;
 			master.rumble("-");
 			toggleLock ? driveLock() : driveUnlock();
@@ -42,24 +44,20 @@ void opcontrol() {
 
 
 		//Basic flipper controls with toggle.
-		if (master.get_digital(FLIPPER_UP) && !IS_ALT)
-			flipper.move_velocity(200);
-		else if (master.get_digital(FLIPPER_DOWN) && !IS_ALT)
-			flipper.move_velocity(-200);
-		else if (!isFlipping)
-			flipper.move_velocity(0);
+		if (master.get_digital_new_press(FLIPPER_TOGG))
+			toggleFlipper();
 
 
 		//Basic intake controls.
-		if (master.get_digital(INTAKE_UP) && !IS_ALT)
+		if (master.get_digital(INTAKE_UP))
 			intake.move(90);
-		else if (master.get_digital(INTAKE_DOWN) && !IS_ALT)
+		else if (master.get_digital(INTAKE_DOWN))
 			intake.move(-90);
 		else
 			intake.move(0);
 
 		//Toggles intake pneumatics.
-		if (master.get_digital_new_press(INTAKE_TOGG) && !IS_ALT/*master.get_digital_new_press(ALT_BTNS)*/) {
+		if (master.get_digital_new_press(INTAKE_TOGG) && !master.get_digital(ALT_BTNS)) {
 			toggle_piston = !toggle_piston;
 			pistonL.set_value(toggle_piston);
 			pistonR.set_value(toggle_piston);
@@ -69,7 +67,7 @@ void opcontrol() {
 		//Basic launcher controls.
 		if (toggleLauncher)
 			launcherControl();
-		else if (master.get_digital(LAUNCH_BTN) && !IS_ALT) {
+		else if (master.get_digital(LAUNCH_BTN) && !master.get_digital(ALT_BTNS)) {
 			launcherL.move(100);
 			launcherR.move(100);
 		}
@@ -79,33 +77,32 @@ void opcontrol() {
 		}
 
 		//Toggles launcher angle
-		if(master.get_digital_new_press(LAUNCHER_C) && !IS_ALT)
+		if(master.get_digital_new_press(LAUNCHER_C) && !master.get_digital(ALT_BTNS))
 			launcherMove(true);
-		else if(master.get_digital_new_press(LAUNCHER_F) && !IS_ALT)
+		else if(master.get_digital_new_press(LAUNCHER_F) && !master.get_digital(ALT_BTNS))
 			launcherMove(false);
 
 
 		//Auton test while not connected to field.
-		if (master.get_digital_new_press(RUN_AUTON) && !competition::is_connected() && IS_ALT)
+		if (master.get_digital_new_press(RUN_AUTON) && !competition::is_connected() && master.get_digital(ALT_BTNS))
 			autonomous();
 
 		//Updates display values.
 		updateLineVariable(1, driveL.getPosition());
 		updateLineVariable(2, driveR.getPosition());
 		updateLineVariable(3, flipper.get_position());
-		updateLineVariable(4, toggleLock);
-		updateLineVariable(6, launcherAngle.getPosition());
+		updateLineVariable(4, launcherAngle.getPosition());
 
 		//Resets motor encoders.
-		if (master.get_digital_new_press(CLEAR_ENCODE) && IS_ALT) {
+		if (master.get_digital_new_press(CLEAR_ENCODE) && master.get_digital(ALT_BTNS)) {
 			motorL1.tare_position();
 			motorR1.tare_position();
 			flipper.tare_position();
+			launcherAngle.tarePosition();
 		}
 
 		//Checks if manual auton is starting.
 		startAuton();
-
 
 		do {
 			delay(20);
