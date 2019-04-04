@@ -201,7 +201,7 @@ float rightEncoder;
 float leftEncoder;
 float flipperEncoder;
 float launcherEncoder;
-float testValue;
+float intakeValue;
 
 void updateLineVariable(int line, float value) {
   switch (line){
@@ -212,16 +212,18 @@ void updateLineVariable(int line, float value) {
     case 3: flipperEncoder = value;
       break;
     case 4: launcherEncoder = value;
+      break;
+    case 5: intakeValue = value;
   }
 
   lv_label_set_text(txt, (  "Right encoder: " + to_string(rightEncoder) + '\n' +
                             "Left encoder: " + to_string(leftEncoder) + '\n' +
                             "Flipper encoder: " + to_string(flipperEncoder) + '\n' +
                             "Launcher angle encoder: " + to_string(launcherEncoder) + '\n' +
+                            "Intake sensor: " + to_string(intakeValue) + '\n' +
                             "Selected Auton: " + to_string(selectedAuton) + '\n' +
                             "Test switches: " + to_string(test1) + " " + to_string(test2) +
-                            " " + to_string(test3) + '\n' +
-                            "Test" + '\n').c_str());
+                            " " + to_string(test3) + '\n').c_str());
 }
 
 bool waitAuton = false;

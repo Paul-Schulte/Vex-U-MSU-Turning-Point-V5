@@ -52,19 +52,11 @@ void opcontrol() {
 
 
 		//Basic intake controls.
-		if (master.get_digital(INTAKE_UP))
-			intake.move(90);
-		else if (master.get_digital(INTAKE_DOWN))
-			intake.move(-90);
-		else
-			intake.move(0);
+		intakeControl();
 
 		//Toggles intake pneumatics.
-		if (master.get_digital_new_press(INTAKE_TOGG) && !master.get_digital(ALT_BTNS)) {
-			toggle_piston = !toggle_piston;
-			pistonL.set_value(toggle_piston);
-			pistonR.set_value(toggle_piston);
-		}
+		if (master.get_digital_new_press(INTAKE_TOGG) && !master.get_digital(ALT_BTNS))
+			intakeToggle();
 
 
 		//Basic launcher controls.
@@ -97,6 +89,7 @@ void opcontrol() {
 		updateLineVariable(2, driveR.getPosition());
 		updateLineVariable(3, flipper.get_position());
 		updateLineVariable(4, launcherAngle.getPosition());
+		updateLineVariable(5, intakeSensor.get_value());
 
 		//Resets motor encoders.
 		if (master.get_digital_new_press(CLEAR_ENCODE) && master.get_digital(ALT_BTNS)) {

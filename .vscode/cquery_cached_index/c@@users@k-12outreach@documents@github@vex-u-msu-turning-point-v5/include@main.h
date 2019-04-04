@@ -63,6 +63,7 @@
  #include "blueAuton.hpp"
  #include "skills.hpp"
  #include "buttons.hpp"
+ #include "intake.hpp"
 // using namespace pros::literals;
 // using namespace okapi;
 

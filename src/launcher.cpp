@@ -29,9 +29,12 @@ void launcherControl(){
 /**
 Activates the launcher.
 */
+bool hasBall = false;
 void launcherShoot(){
-  launcherL.move_absolute(1800, 300);
+  intakeToggle(false);
+  launcherL.move_relative(1800, 300);
   launcherR.move_relative(1800, 300);
+  hasBall = false;
 }
 
 int angle_1 = 0;
