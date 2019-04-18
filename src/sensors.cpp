@@ -3,4 +3,7 @@
 
 ADIDigitalOut pistonL('A');
 ADIDigitalOut pistonR('B');
-ADIUltrasonic intakeSensor('C', 'D');
+ADILineSensor ballSensorL('C');
+ADIDigitalIn sensorL('D');
+ADIDigitalIn sensorR('E');
+ADILineSensor ballSensorR('F');

@@ -18,7 +18,7 @@ Motor motorR3 (19, GEAR_GREEN, false);
 Motor motorR4 (20, GEAR_GREEN, true);
 
 okapi::MotorGroup driveL({-1, 2, -3, 4});
-okapi::MotorGroup driveR({17, -18, 19, -20});
+okapi::MotorGroup driveR({16, -18, 19, -20});
 
 okapi::ChassisControllerPID chassis = okapi::ChassisControllerFactory::create(driveL, driveR,
   //Distance control

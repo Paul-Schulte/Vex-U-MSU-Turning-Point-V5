@@ -10,8 +10,8 @@
 
 #define ALT_BTNS      DIGITAL_X
 #define LAUNCH_BTN    DIGITAL_A
-#define LAUNCHER_C    DIGITAL_Y
-#define LAUNCHER_F    DIGITAL_B
+#define LAUNCHER_C    DIGITAL_B
+#define LAUNCHER_F    DIGITAL_Y
 
 //#define ###### DIGITAL_UP
 //#define ###### DIGITAL_DOWN

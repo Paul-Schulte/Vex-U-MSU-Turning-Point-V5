@@ -4,4 +4,7 @@
 
 extern ADIDigitalOut pistonL;
 extern ADIDigitalOut pistonR;
-extern ADIUltrasonic intakeSensor;
+extern ADILineSensor ballSensorL;
+extern ADILineSensor ballSensorR;
+extern ADIDigitalIn sensorL;
+extern ADIDigitalIn sensorR;

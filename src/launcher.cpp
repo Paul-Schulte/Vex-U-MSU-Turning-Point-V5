@@ -29,18 +29,32 @@ void launcherControl(){
 /**
 Activates the launcher.
 */
-bool hasBall = false;
 void launcherShoot(){
   intakeToggle(false);
   launcherL.move_relative(1800, 300);
   launcherR.move_relative(1800, 300);
-  hasBall = false;
 }
 
-int angle_1 = 0;
-int angle_2 = 300;
-int angle_3 = 600;
-int angle_4 = 880;
+/*
+Hits top flag when front wheels are two tiles away from wall.
+*/
+float angle_1 = 220;
+/*
+Hits top flag when front wheels are on front of front colored tile.
+Hits top flag at front wheels are two tiles from wall.
+*/
+float angle_2 = 880;
+/*
+Hits top flag when front wheels are on front of front colored tile.
+Hits top flag at front wheels are two tiles from wall.
+*/
+float angle_3 = 400;
+/*
+Hits middle flag when back wheels are between back of front colored tile and
+front of back colored tile.
+Hits middle flag when front wheels are two tiles from wall.
+*/
+float angle_4 = 1220;
 int l_power = 400;
 int last_pos = 1;
 void launcherMove(bool close) {

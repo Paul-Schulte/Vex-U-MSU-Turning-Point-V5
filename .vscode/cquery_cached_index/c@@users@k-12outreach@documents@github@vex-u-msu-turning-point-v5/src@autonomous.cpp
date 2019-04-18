@@ -28,10 +28,8 @@ void autonomous() {
   // }
 
   chassis.setMaxVelocity(100);
-  chassis.turnAngle(90_deg);
-  delay(1000);
-
-  delay(5000);
+  chassis.turnAngle(95_deg);
+  delay(2000);
 
   // driveL.moveRelative(1000, 100);
   // delay(4000);

@@ -201,7 +201,8 @@ float rightEncoder;
 float leftEncoder;
 float flipperEncoder;
 float launcherEncoder;
-float intakeValue;
+float ballValueL;
+float ballValueR;
 
 void updateLineVariable(int line, float value) {
   switch (line){
@@ -213,15 +214,17 @@ void updateLineVariable(int line, float value) {
       break;
     case 4: launcherEncoder = value;
       break;
-    case 5: intakeValue = value;
+    case 5: ballValueL = value;
+      break;
+    case 6: ballValueR = value;
   }
 
   lv_label_set_text(txt, (  "Right encoder: " + to_string(rightEncoder) + '\n' +
                             "Left encoder: " + to_string(leftEncoder) + '\n' +
                             "Flipper encoder: " + to_string(flipperEncoder) + '\n' +
                             "Launcher angle encoder: " + to_string(launcherEncoder) + '\n' +
-                            "Intake sensor: " + to_string(intakeValue) + '\n' +
-                            "Selected Auton: " + to_string(selectedAuton) + '\n' +
+                            "Ball sensor L: " + to_string(ballValueL) + '\n' +
+                            "Ball sensor R: " + to_string(ballValueR) + '\n' +
                             "Test switches: " + to_string(test1) + " " + to_string(test2) +
                             " " + to_string(test3) + '\n').c_str());
 }

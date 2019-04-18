@@ -18,12 +18,17 @@ void opcontrol() {
 
 	// Task flipperTask (toggleFlipper, (void*)"", TASK_PRIORITY_MIN, TASK_STACK_DEPTH_DEFAULT, "");
 	Task screenAuton (startAuton, (void*)"", TASK_PRIORITY_MIN, TASK_STACK_DEPTH_DEFAULT);
+	//Basic intake controls.
+	Task intakeTask (intakeControl, (void*)"", TASK_PRIORITY_MIN, TASK_STACK_DEPTH_DEFAULT);
 
 	bool toggleLauncher = false;
 	bool toggleLock = false;
 	bool toggleDrive = false;
 
+	long currentTime = 0;
+
 	launcherAngle.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
+	flipper.set_brake_mode(MOTOR_BRAKE_HOLD);
 
 	while (true) {
 		//Sets the drive to tank drive.
@@ -51,9 +56,6 @@ void opcontrol() {
 		flipperCheck();
 
 
-		//Basic intake controls.
-		intakeControl();
-
 		//Toggles intake pneumatics.
 		if (master.get_digital_new_press(INTAKE_TOGG) && !master.get_digital(ALT_BTNS))
 			intakeToggle();
@@ -62,13 +64,16 @@ void opcontrol() {
 		//Basic launcher controls.
 		if (toggleLauncher)
 			launcherControl();
-		else if (master.get_digital(LAUNCH_BTN) && !master.get_digital(ALT_BTNS)) {
+		else if (master.get_digital_new_press(LAUNCH_BTN) && !master.get_digital(ALT_BTNS)) {
 			launcherL.move(100);
 			launcherR.move(100);
+			intakeToggle(false);
+			launching = true;
 		}
-		else {
+		else if (!master.get_digital(LAUNCH_BTN)){
 			launcherL.move(0);
 			launcherR.move(0);
+			launching = false;
 		}
 
 		//Toggles launcher angle
@@ -89,7 +94,8 @@ void opcontrol() {
 		updateLineVariable(2, driveR.getPosition());
 		updateLineVariable(3, flipper.get_position());
 		updateLineVariable(4, launcherAngle.getPosition());
-		updateLineVariable(5, intakeSensor.get_value());
+		updateLineVariable(5, ballSensorL.get_value());
+		updateLineVariable(6, ballSensorR.get_value());
 
 		//Resets motor encoders.
 		if (master.get_digital_new_press(CLEAR_ENCODE) && master.get_digital(ALT_BTNS)) {
