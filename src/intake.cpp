@@ -11,35 +11,62 @@ void intakeToggle(int setUp) {
 
 bool launching = false;
 bool hasBall = false;
+bool autonIntake = false;
 
 int sensorRange = 32;
 void intakeControl(void*) {
   while (true) {
-    if (master.get_digital(INTAKE_UP) && !(sensorL.get_value() || sensorR.get_value()))
-      intake.move(90);
-    else if (master.get_digital(INTAKE_DOWN))
-      intake.move(-90);
-    else if (!hasBall && (sensorL.get_value() || sensorR.get_value())) {
-      intakeToggle(true);
-      intake.move(90);
-      delay(400);
-      intakeToggle(false);
-      intake.move(0);
-    }
-    else
-      intake.move(0);
+    if (isAuton) {
+      if ((master.get_digital(INTAKE_UP) || autonIntake) && !(sensorL.get_value() || sensorR.get_value()))
+        intake.move(70);
+        else if (master.get_digital(INTAKE_DOWN))
+        intake.move(-90);
+        else if (!hasBall && (sensorL.get_value() || sensorR.get_value())) {
+          delay(200);
+          intakeToggle(true);
+          intake.move(70);
+          delay(700);
+          intakeToggle(false);
+          intake.move(0);
+        }
+        else
+        intake.move(0);
 
-    if (ballSensorL.get_value() < 2650 || ballSensorR.get_value() < 2750) {
+        if ((sensorL.get_value() || sensorR.get_value()) && !hasBall) {
+          intakeToggle(true);
+        }
+      }
+      else {
+        if (master.get_digital(INTAKE_UP)) {
+          if (!(sensorL.get_value() || sensorR.get_value())) {
+            intake.move(70);
+          }
+          else if ((sensorL.get_value() || sensorR.get_value()) && !hasBall) {
+            intakeToggle(true);
+            intake.move(70);
+            delay(400);
+            intakeToggle(false);
+          }
+          else {
+            intake.move(0);
+          }
+        }
+        else if (master.get_digital(INTAKE_DOWN)) {
+          intake.move(-90);
+        }
+        else {
+          intake.move(0);
+        }
+      }
+
+    if (ballSensorL.get_value() < 2800 || ballSensorR.get_value() < 2800) {
       hasBall = true;
     }
     else if (!launching && hasBall) {
-      delay(100);
+      delay(300);
       hasBall = false;
     }
 
-    if ((sensorL.get_value() || sensorR.get_value()) && !hasBall) {
-      intakeToggle(true);
-    }
     delay(4);
   }
 }

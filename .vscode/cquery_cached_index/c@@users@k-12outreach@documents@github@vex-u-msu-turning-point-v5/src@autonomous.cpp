@@ -14,25 +14,42 @@ using namespace okapi;
  * from where it left off.
  */
 
-
+/*
+Auton notes:
+-driving forward should be done at 200 velocity.
+-driving back should be done at 100-120 velocity.
+-turning should be done at 75 velocity.
+*/
 void autonomous() {
+  intake.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
+  launcherAngle.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
   isAuton = true;
 
-  // switch (selectedAuton) {
-  //   case 1: redAuton();
-  //     break;
-  //   case 2: blueAuton();
-  //     break;
-  //   case 3: skills();
-  //     break;
-  // }
+  switch (selectedAuton) {
+    case 1: redAuton();
+      break;
+    case 2: blueAuton();
+      break;
+    case 3: skills();
+      break;
+  }
 
-  chassis.setMaxVelocity(100);
-  chassis.turnAngle(95_deg);
-  delay(2000);
+  // chassis.setMaxVelocity(200);
+  // chassis.moveDistance(5.5_ft);
+  // delay(100);
+  // chassis.setMaxVelocity(100);
+  // chassis.moveDistance(-.5_ft);
+  // delay(100);
 
-  // driveL.moveRelative(1000, 100);
-  // delay(4000);
+  // chassis.setMaxVelocity(60);
+  // chassis.turnAngle(90_deg);
+  // delay(100);
+
+  // chassis.setMaxVelocity(120);
+  // chassis.moveDistance(-3_ft);
+
+  // chassis.setMaxVelocity(100);
+  // chassis.turnAngle(102_deg);
 
   chassis.setMaxVelocity(200);
   isAuton = false;

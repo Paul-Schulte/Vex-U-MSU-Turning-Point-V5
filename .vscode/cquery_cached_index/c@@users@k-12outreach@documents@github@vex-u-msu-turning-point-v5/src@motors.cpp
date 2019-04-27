@@ -22,12 +22,12 @@ okapi::MotorGroup driveR({16, -18, 19, -20});
 
 okapi::ChassisControllerPID chassis = okapi::ChassisControllerFactory::create(driveL, driveR,
   //Distance control
-  IterativePosPIDController::Gains{0.006, 0, 0.06},
+  IterativePosPIDController::Gains{0.003, 0.0004, 0.0002},//0.003, 0.000, 0.0002
   //Straightening control
-  IterativePosPIDController::Gains{0.005, 0, 0.7},
+  IterativePosPIDController::Gains{0.0001, 0.0000, 0.00016},//0.01, 0.0001, 0.0001
   //Turning control
-  IterativePosPIDController::Gains{0.006, 0, 0},
-  okapi::AbstractMotor::gearset::green, {4_in, 12.0625_in});
+  IterativePosPIDController::Gains{0.017, 0.013, 0.0012},//0.035, 0.01, 0.0015 //0.035, 0.01, 0.0006
+  okapi::AbstractMotor::gearset::green, {4.125_in, 12.25_in});
 
 using okapi::AbstractMotor;
 
@@ -36,6 +36,7 @@ Motor launcherL  (10, GEAR_RED, true);
 Motor launcherR (11, GEAR_RED, false);
 okapi::Motor launcherAngle (12, true, AbstractMotor::gearset::green, AbstractMotor::encoderUnits::degrees);
 Motor flipper   (8, GEAR_RED, false);
-Motor intake    (7, GEAR_BLUE, false);
+okapi::Motor intake (7, false, AbstractMotor::gearset::blue, AbstractMotor::encoderUnits::degrees);
+// Motor intake    (7, GEAR_BLUE, false);
 
 bool isAuton;

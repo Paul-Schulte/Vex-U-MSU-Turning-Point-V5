@@ -22,6 +22,6 @@ extern Motor launcherL;
 extern Motor launcherR;
 extern okapi::Motor launcherAngle;
 extern Motor flipper;
-extern Motor intake;
+extern okapi::Motor intake;
 
 extern bool isAuton;

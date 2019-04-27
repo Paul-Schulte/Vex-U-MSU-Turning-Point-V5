@@ -14,13 +14,13 @@
 #define LAUNCHER_F    DIGITAL_Y
 
 //#define ###### DIGITAL_UP
-//#define ###### DIGITAL_DOWN
-//#define ###### DIGITAL_LEFT
+#define INVERT_DRIVE DIGITAL_DOWN
+#define SLOW_DRIVE DIGITAL_LEFT
 //#define ###### DIGITAL_RIGHT
 
 
 /*Alt buttons*/
-#define INVERT_DRIVE  DIGITAL_UP
+// #define ######  DIGITAL_UP
 #define LOCK_DRIVE    DIGITAL_DOWN
 #define RUN_AUTON     DIGITAL_LEFT
 #define CLEAR_ENCODE  DIGITAL_RIGHT

@@ -36,23 +36,19 @@ void launcherShoot(){
 }
 
 /*
-Hits top flag when front wheels are two tiles away from wall.
+Hits top flag when front wheels are two tiles from wall.
 */
-float angle_1 = 220;
+float angle_1 = 300;
 /*
-Hits top flag when front wheels are on front of front colored tile.
-Hits top flag at front wheels are two tiles from wall.
+Hits middle flag when front wheels are two tiles from wall.
 */
-float angle_2 = 880;
+float angle_2 = 1200;
 /*
-Hits top flag when front wheels are on front of front colored tile.
-Hits top flag at front wheels are two tiles from wall.
+Hits top flag when back wheels are three tiles from wall.
 */
 float angle_3 = 400;
 /*
-Hits middle flag when back wheels are between back of front colored tile and
-front of back colored tile.
-Hits middle flag when front wheels are two tiles from wall.
+Hits middle flag when back wheels are three tiles from wall.
 */
 float angle_4 = 1220;
 int l_power = 400;
@@ -78,6 +74,10 @@ void launcherMove(bool close) {
       last_pos = 4;
     }
   }
+}
+
+void launcherMove(int pos) {
+  launcherAngle.moveAbsolute(pos, l_power);
 }
 
 void launcherCheck() {

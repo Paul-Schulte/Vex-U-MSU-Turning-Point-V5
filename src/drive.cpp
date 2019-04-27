@@ -11,7 +11,7 @@ The velocity set to the left side of the drive.
 \param right
 The velocity set to the right side of the drive.
  */
-void setDrive(int left, int right){
+void setDrive(int left, int right, bool invert){
   // motorL1.move(left);
   // motorL2.move(left);
   // motorL3.move(left);
@@ -20,8 +20,7 @@ void setDrive(int left, int right){
   // motorR2.move(right);
   // motorR3.move(right);
   // motorR4.move(right);
-
-  chassis.tank(left / 127.0, right / 127.0);
+  invert ? chassis.tank(right / -127.0, left / -127.0) : chassis.tank(left / 127.0, right / 127.0);
 }
 
 /**

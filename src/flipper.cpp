@@ -2,8 +2,8 @@
 
 
 bool flipperUp = true;
-int flipperMax = 500;
-int flipperMin = 100;
+int flipperMax = 550;
+int flipperMin = 150;
 
 void toggleFlipper() {
   if(flipperUp)

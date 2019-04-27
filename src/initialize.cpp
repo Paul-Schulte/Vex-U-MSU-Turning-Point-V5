@@ -8,6 +8,9 @@
  */
 
 void initialize() {
+  Task intakeTask (intakeControl, (void*)"", TASK_PRIORITY_MIN, TASK_STACK_DEPTH_DEFAULT);
+  intake.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
+  launcherAngle.setBrakeMode(okapi::AbstractMotor::brakeMode::hold);
   runScreen();
 }
 

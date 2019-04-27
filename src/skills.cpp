@@ -4,6 +4,55 @@ using namespace okapi;
 #define moveDelay delay(100)
 
 void skills() {
+  autonIntake = true;//Starts intake.
+  chassis.setMaxVelocity(200);
+  chassis.moveDistance(4.1_ft);//Moves up to cap on ball and collects it.
+  moveDelay;
+  chassis.setMaxVelocity(120);
+  chassis.moveDistance(-4.25_ft);//Moves back and aligns with wall
+  autonIntake = false;//Stops intake.
+  moveDelay;
+  chassis.setMaxVelocity(100);
+  chassis.moveDistance(.9_ft);//Moves up to edge of tile.
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(-93_deg);//Turns left to align with flags.
+  moveDelay;
+  chassis.moveDistance(1_ft);//Moves up to position.
+  flipper.move_absolute(150, 100);//Moves flipper out of the way.
+  moveDelay;
+  launcherMove(880);//Sets launcher to first near position.
+  delay(500);
+  launcherShoot();//Shoots first ball.
+  autonIntake = true;
+  delay(800);
+  launcherMove(220);//Sets launcher to second near position.
+  delay(700);
+  launcherShoot();//Shoots second ball.
+  autonIntake = false;
+  delay(700);
+
+  chassis.turnAngle(-93_deg);
+  moveDelay;
+  chassis.moveDistance(.7_ft);
+  moveDelay;
+  chassis.turnAngle(93_deg);
+  moveDelay;
+  chassis.moveDistance(3.6_ft);
+  moveDelay;
+
+  chassis.setMaxVelocity(120);
+  chassis.moveDistance(-6.3_ft);
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(93_deg);
+  moveDelay;
+  chassis.setMaxVelocity(150);
+  chassis.moveDistance(6_ft);
+
+
+
+  /*
   chassis.setMaxVelocity(150);
   intake.move(90);//Starts intake.
   chassis.moveDistance(3.5_ft);//Moves up to cap on ball and collects it.
@@ -63,4 +112,5 @@ void skills() {
   moveDelay;
   chassis.setMaxVelocity(150);
   chassis.moveDistance(2.5_ft);//Yeets onto center platform.
+  */
 }

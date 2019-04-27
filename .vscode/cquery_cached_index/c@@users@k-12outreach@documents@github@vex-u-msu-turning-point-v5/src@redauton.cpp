@@ -4,6 +4,163 @@ using namespace okapi;
 #define moveDelay delay(100)
 
 void redAuton(){
+  autonIntake = true;//Starts intake.
+  chassis.setMaxVelocity(200);
+  chassis.moveDistance(4.1_ft);//Moves up to cap on ball and collects it.
+  moveDelay;
+  chassis.setMaxVelocity(120);
+  chassis.moveDistance(-4.25_ft);//Moves back and aligns with wall
+  autonIntake = false;//Stops intake.
+  moveDelay;
+  chassis.setMaxVelocity(100);
+  chassis.moveDistance(.9_ft);//Moves up to edge of tile.
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(-93_deg);//Turns left to align with flags.
+  moveDelay;
+  chassis.moveDistance(1_ft);//Moves up to position.
+  flipper.move_absolute(150, 100);//Moves flipper out of the way.
+  moveDelay;
+  launcherMove(880);//Sets launcher to first near position.
+  delay(500);
+  launcherShoot();//Shoots first ball.
+  autonIntake = true;
+  delay(800);
+  launcherMove(220);//Sets launcher to second near position.
+  delay(700);
+  launcherShoot();//Shoots second ball.
+  autonIntake = false;
+  delay(700);
+
+  // chassis.turnAngle(-93_deg);
+  // moveDelay;
+  // chassis.moveDistance(.7_ft);
+  // moveDelay;
+  // chassis.turnAngle(93_deg);
+  // moveDelay;
+  // chassis.moveDistance(3.6_ft);
+
+
+
+  chassis.turnAngle(145_deg);//Turns to corner of platform.
+  moveDelay;
+  autonIntake = true;//Starts intake.
+  intakeToggle(true);//Moves intake up.
+  chassis.setMaxVelocity(150);
+  chassis.moveDistance(2.6_ft);//Moves up to corner and collects ball.
+  moveDelay;
+  intakeToggle(false);
+  chassis.setMaxVelocity(120);
+  chassis.moveDistance(-2_ft);//Backs up.
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(-60_deg);
+  autonIntake = false;
+  moveDelay;
+  chassis.setMaxVelocity(100);
+  chassis.moveDistance(2_ft);
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(-125_deg);
+  moveDelay;
+  intakeToggle(true);
+  autonIntake = true;
+  chassis.moveDistance(1_ft);
+  moveDelay;
+  chassis.moveDistance(-1.5_ft);
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(130_deg);
+  moveDelay;
+  flipper.move_absolute(0, 60);
+  launcherMove(0);
+  chassis.setMaxVelocity(100);
+  chassis.moveDistance(-3.7_ft);
+  moveDelay;
+  chassis.moveDistance(1.5_ft);
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(93_deg);
+  moveDelay;
+  chassis.setMaxVelocity(100);
+  chassis.moveDistance(2.5_ft);
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(-93_deg);
+  moveDelay;
+  chassis.setMaxVelocity(150);
+  chassis.moveDistance(3.5_ft);
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.moveDistance(.3_ft);
+  moveDelay;
+  chassis.moveDistance(-.4_ft);
+  moveDelay;
+  chassis.turnAngle(-60_deg);
+  moveDelay;
+  flipper.move_absolute(150, 100);//Moves flipper out of the way.
+  intakeToggle(true);
+  delay(500);
+  intakeToggle();
+  delay(200);
+  launcherMove(1200);
+  delay(700);
+  launcherShoot();//Shoots first ball.
+  autonIntake = true;
+  delay(800);
+  launcherMove(700);//Sets launcher to second near position.
+  delay(700);
+  launcherShoot();//Shoots second ball.
+  autonIntake = false;
+  delay(700);
+
+
+
+
+
+  /*
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(35_deg);//Turns parallel to wall.
+  autonIntake = false;
+  moveDelay;
+  chassis.setMaxVelocity(150);
+  chassis.moveDistance(5.5_ft);//Moves forward to position for second ball on platform.
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(-140_deg);//Turns to corner of platform.
+  autonIntake = true;//Starts intake.
+  intakeToggle(true);//Moves intake up.
+  moveDelay;
+  chassis.setMaxVelocity(125);
+  chassis.moveDistance(2.2_ft);//Moves up to corner and collects second ball.
+  moveDelay;
+  chassis.moveDistance(-1_ft);//Backs up.
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(60_deg);//Turns perpendicular to side wall.
+  moveDelay;
+  chassis.setMaxVelocity(120);
+  chassis.moveDistance(-2_ft);//Backs up and aligns against wall.
+  moveDelay;
+  chassis.moveDistance(2_ft);//Goes forward from wall.
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(-93_deg);//Turns left.
+  moveDelay;
+  chassis.setMaxVelocity(120);
+  chassis.moveDistance(2_ft);
+  moveDelay;
+  chassis.setMaxVelocity(60);
+  chassis.turnAngle(93_deg);
+  moveDelay;
+  chassis.setMaxVelocity(200);
+  chassis.moveDistance(6_ft);
+  moveDelay;
+
+
+
+
+  /*
   chassis.setMaxVelocity(100);
   intake.move(90);//Starts intake.
   chassis.moveDistance(2.9_ft);//Moves up to cap on ball and collects it.
@@ -52,40 +209,5 @@ void redAuton(){
   moveDelay;
   chassis.setMaxVelocity(150);
   chassis.moveDistance(5_ft);//Yeeeeeeeets onto platform.
-
-
-
-
-
-  /*
-  driveStraight(3300, 80);//Hits flag.
-  delay(3500);
-  driveStraight(-1700, -80);//Backs up
-  delay(1500);
-  //Red
-  driveManual(800, -800, 80, -80);//Turn right.
-  delay(1000);
-  driveStraight(3000, 100);//Drive straight.
-  delay(3000);
-  //Red
-  driveManual(-800, 800, -80, 80);//Turn right.
-  delay(1000);
-  driveStraight(1700, 100);//Hitting flag 2.
-  delay(1400);
-  driveStraight(-1800, -100); //Back up
-  delay(1500);
-  //Red
-  driveManual(800, -800, 80, -80);//Turn left.
-  delay(1000);
-  driveStraight(-900, -100);//Back up to middle.
-  delay(1200);
-  //Red
-  driveManual(600, -600, 80, -80);//Turn left to platform
-  delay(1000);
-
-  //delay(10000);//Wait for bot 1.
-
-  driveStraight(4500, 200);//Yeeeeet.
-  delay(3500);
   */
 }
